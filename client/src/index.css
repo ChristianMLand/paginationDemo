@@ -1,0 +1,222 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+form {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+label {
+  font-size: 1em;
+}
+input, select, button {
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background-color: #1a1a1a;
+  transition: border-color 0.25s;
+}
+button {
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+}
+button:hover, input:hover, select:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible,
+input:focus,
+input:focus-visible,
+select:focus,
+select:focus-visible {
+  outline: 4px auto #646cff;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+#root {
+  width: 100vw;
+}
+
+main {
+  margin: auto;
+  width: 60vw;
+  display: grid;
+  place-content: center;
+  place-items: center;
+  text-align: center;
+}
+
+#poke-card-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  overflow-y: scroll;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  width: 60%;
+  list-style: none;
+}
+
+.poke-card {
+  text-transform: capitalize;
+  word-wrap: break-word;
+  font-weight: bold;
+  text-align: center;
+  background: #ffffff13;
+  box-shadow: 1px 1px 3px #131313;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0.25rem;
+  width: 13rem;
+  height: 13rem;
+}
+
+.types {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#page-number-list {
+  display: flex;
+  list-style: none;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.active {
+  outline: 2px solid #646cff;
+}
+
+
+
+
+span.type {
+	border: 2px solid #000;
+	border-radius: 5px;
+	padding: 0.25rem 0.75rem;
+	color: #fff;
+}
+
+span.type.normal {
+	background-color: #A8A878;
+	border-color: #6D6D4E;
+}
+span.type.fire {
+	background-color: #F08030;
+	border-color: #9C531F;
+}
+span.type.water {
+	background-color: #6890F0;
+	border-color: #445E9C;
+}
+span.type.electric {
+	background-color: #F8D030;
+	border-color: #A1871F;
+}
+span.type.grass {
+	background-color: #78C850;
+	border-color: #4E8234;
+}
+span.type.ice {
+	background-color: #98D8D8;
+	border-color: #638D8D;
+}
+span.type.fighting {
+	background-color: #C03028;
+	border-color: #7D1F1A;
+}
+span.type.poison {
+	background-color: #A040A0;
+	border-color: #682A68;
+}
+span.type.ground {
+	background-color: #E0C068;
+	border-color: #927D44;
+}
+span.type.flying {
+	background-color: #A890F0;
+	border-color: #6D5E9C;
+}
+span.type.psychic {
+	background-color: #F85888;
+	border-color: #A13959;
+}
+span.type.bug {
+	background-color: #A8B820;
+	border-color: #6D7815;
+}
+span.type.rock {
+	background-color: #B8A038;
+	border-color: #786824;
+}
+span.type.ghost {
+	background-color: #705898;
+	border-color: #493963;
+}
+span.type.dragon {
+	background-color: #7038F8;
+	border-color: #4924A1;
+}
+span.type.dark {
+	background-color: #705848;
+	border-color: #49392F;
+}
+span.type.steel {
+	background-color: #B8B8D0;
+	border-color: #787887;
+}
+span.type.fairy {
+	background-color: #EE99AC;
+	border-color: #9B6470;
+}
