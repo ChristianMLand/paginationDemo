@@ -3,17 +3,18 @@ import { useState, useEffect } from 'react';
 export const useDataFetcher = (service, dependencies=[]) => {
     const [data, setData] = useState();
     const [loading, setLoading] = useState(false);
+
+    const fetchData = async controller => {
+      setLoading(true);
+      const res = await service(controller);
+      setLoading(false);
+      return res;
+    }
+
     useEffect(() => {
       const controller = new AbortController();
-      setLoading(true);
-      service(controller).then(res => {
-        setData(res);
-        setLoading(false);
-      });
-      return () => {
-        controller.abort();
-        setLoading(false);
-      }
+      fetchData(controller).then(setData);
+      return () => controller.abort();
     }, dependencies);
 
     return [data, loading];
