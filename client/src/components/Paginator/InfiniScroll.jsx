@@ -13,7 +13,6 @@ export default function InfiniScroll(props) {
 
   const [allItems, setAllItems] = useState([]);
   const listElement = useRef(null);
-  const scrollPos = useRef(0);
 
   const {
     items,
@@ -28,7 +27,6 @@ export default function InfiniScroll(props) {
     if (allItems.length !== (currentPage + 1) * batchSize) return;
 
     const { scrollTop, scrollHeight, clientHeight } = listElement.current;
-    scrollPos.current = scrollHeight;
 
     if (scrollTop + clientHeight >= scrollHeight - bufferDistance) {
       goToPage(currentPage + 1);
@@ -37,7 +35,6 @@ export default function InfiniScroll(props) {
 
   useEffect(() => {
     setAllItems(current => current.concat(items ?? []));
-    listElement.current.scrollTo(0, scrollPos.current);
   }, [items]);
 
   return (

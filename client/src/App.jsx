@@ -21,7 +21,7 @@ export default function App() {
         <InfiniScroll
           service={getPokemon}
           batchSize={25}
-          bufferDistance={150}
+          bufferDistance={250}
           totalItems={totalPokemon}
           ItemComponent={PokeCard}
         />

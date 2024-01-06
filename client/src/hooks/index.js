@@ -36,7 +36,7 @@ export const usePaginate = (service, initialAmountPerPage, total) => {
 
   const updateAmtPerPage = amt => {
     totalPages = Math.ceil(total / amt);
-    goToPage(Math.floor(amtPerPage * (currentPage + 1) / amt) - 1);
+    goToPage(Math.floor((amtPerPage * currentPage + 1) / amt));
     setAmtPerPage(amt);
   }
 
