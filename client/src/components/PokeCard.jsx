@@ -1,8 +1,8 @@
-import style from './paginator.module.css';
+import style from './pokeCard.module.css';
 
 export default function PokeCard({ name, sprites, types }) {
     return (
-        <li className={style.item} key={name}>
+        <li className={style.item}>
             <p>{name}</p>
             <img src={sprites?.front_default} alt={name} />
             <div className={style.types}>
