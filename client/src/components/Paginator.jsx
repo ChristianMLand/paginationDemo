@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { usePaginate } from '~/hooks';
 import style from './paginator.module.css';
 
-export default function Paginator({ service, maxPageButtons, itemPerPageOptions, totalItems }) {
+export default function Paginator({ service, maxPageButtons, itemPerPageOptions, totalItems, ItemComponent }) {
     const {
         items,
         loading,
@@ -51,20 +51,7 @@ export default function Paginator({ service, maxPageButtons, itemPerPageOptions,
                 <h1 className={style.loading}>Loading...</h1> 
                 :
                 <ul className={style.itemList}>
-                    {items?.map(({ name, sprites, types }) => 
-                        <li className={style.item} key={name}>
-                            <p>{name}</p>
-                            <img src={sprites?.front_default} alt={name} />
-                            <div className={style.types}>
-                            { types?.map(({ type }) => 
-                                <span 
-                                    key={type.name} 
-                                    className={`${style[type.name]} ${style.type}`}
-                                >{type.name}</span>)
-                            }
-                            </div>
-                        </li>
-                    )}
+                    {items?.map((item, i) => <ItemComponent key={i} {...item} />)}
                 </ul>
             }
             <ul className={style.pageNumberList}>
