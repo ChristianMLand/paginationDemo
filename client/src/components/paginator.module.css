@@ -1,39 +1,39 @@
 .container {
-    flex: 1;
-    height: 900px;
-    gap: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+  flex: 1;
+  height: 900px;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .itemList {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    overflow-y: scroll;
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    height: fit-content;
-    margin-bottom: auto;
-    width: 800px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  overflow-y: scroll;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  height: fit-content;
+  margin-bottom: auto;
+  width: 800px;
 }
 
 .loading {
-    height: fit-content;
-    margin-bottom: auto;
-    width: 800px;
+  height: fit-content;
+  margin-bottom: auto;
+  width: 800px;
 }
 
 .pageNumberList {
-    display: flex;
-    list-style: none;
-    gap: 0.25rem;
-    align-items: center;
+  display: flex;
+  list-style: none;
+  gap: 0.25rem;
+  align-items: center;
 }
 
 .active {
-    outline: 2px solid #646cff;
+  outline: 2px solid #646cff;
 }
