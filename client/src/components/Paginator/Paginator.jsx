@@ -21,8 +21,10 @@ export default function Paginator(props) {
     totalPages,
   } = usePaginate(service, itemPerPageOptions[0], totalItems);
 
+  const pageArrLen = Math.min(maxPageButtons, totalPages);
+
   const [pageArr, setPageArr] = useState(
-    Array.from({ length: Math.min(maxPageButtons, totalPages) }, (_, i) => i)
+    Array.from({ length: pageArrLen }, (_, i) => i)
   );
 
   const pageInput = useRef(null);
@@ -36,14 +38,14 @@ export default function Paginator(props) {
     const mid = Math.floor(maxPageButtons / 2);
     if (pageArr[mid] === currentPage) return;
 
-    const newPageArr = Array.from({ length: maxPageButtons }, (_, i) => {
-      if (totalPages - currentPage <= mid) return i + totalPages - maxPageButtons;
-      else if (currentPage < mid) return i;
+    const newPageArr = Array.from({ length: pageArrLen }, (_, i) => {
+      if (totalPages - currentPage <= mid) return i + totalPages - pageArrLen;
+      if (currentPage <= mid) return i;
       return i + currentPage - mid;
     });
 
     setPageArr(newPageArr);
-  }, [currentPage]);
+  }, [currentPage, amtPerPage]);
 
   return (
     <div className={style.container}>
@@ -90,6 +92,7 @@ export default function Paginator(props) {
       <form onSubmit={handleSubmit}>
         <label htmlFor="pageInput">Go To Page: </label>
         <input
+          placeholder={`1 ... ${totalPages}`}
           ref={pageInput}
           type="number"
           min={1}
