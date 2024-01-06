@@ -1,8 +1,10 @@
 import axios from 'axios';
 
+const API_URL = "https://pokeapi.co/api/v2/pokemon";
+
 export const getPokemon = async (limit, offset, controller) => {
   try {
-    const { data } = await axios.get("https://pokeapi.co/api/v2/pokemon", {
+    const { data } = await axios.get(API_URL, {
       signal: controller.signal,
       params: { limit, offset }
     });
@@ -17,7 +19,7 @@ export const getPokemon = async (limit, offset, controller) => {
 
 export const getPokemonCount = async controller => {
   try {
-    const { data } = await axios.get("https://pokeapi.co/api/v2/pokemon", {
+    const { data } = await axios.get(API_URL, {
       signal: controller.signal,
       params: { limit: 1 }
     });

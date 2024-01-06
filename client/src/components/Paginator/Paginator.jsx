@@ -37,7 +37,7 @@ export default function Paginator(props) {
     if (pageArr[mid] === currentPage) return;
 
     const newPageArr = Array.from({ length: maxPageButtons }, (_, i) => {
-      if (totalPages - currentPage < mid) return i + totalPages - maxPageButtons;
+      if (totalPages - currentPage <= mid) return i + totalPages - maxPageButtons;
       else if (currentPage < mid) return i;
       return i + currentPage - mid;
     });
