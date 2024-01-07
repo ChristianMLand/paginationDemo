@@ -1,52 +1,67 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
-export const useDataFetcher = (service, dependencies = []) => {
-  const [data, setData] = useState();
+export const useDataFetcher = (service, dependencies = [], fallback = null) => {
+  const [data, setData] = useState(fallback);
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const fetchData = async controller => {
-    setLoading(true);
-    const res = await service(controller);
-    setLoading(false);
-    return res;
-  }
+  const fetchData = async signal => {
+    try {
+      setLoading(true);
+      setData(await service(signal, ...dependencies));
+    } catch (err) {
+      setError(err.message);
+      setData(fallback);
+      console.error("Error: ", err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     const controller = new AbortController();
-    fetchData(controller).then(setData);
+    fetchData(controller.signal);
     return () => controller.abort();
   }, dependencies);
 
-  return [data, loading];
-}
+  return { data, error, loading };
+};
 
-export const usePaginate = (service, initialAmountPerPage, total) => {
+// eager=true fetches all data at once and then exposes what you need as you need it
+// eager=false (the default) fetches data as you need it and exposes it as it loads
+export const usePaginate = (service, initialLimit, total, eager = false) => {
   const [currentPage, setCurrentPage] = useState(0);
-  const [amtPerPage, setAmtPerPage] = useState(initialAmountPerPage);
+  const [limit, setLimit] = useState(initialLimit);
 
-  const [items, loading] = useDataFetcher(controller => {
-    return service(amtPerPage, amtPerPage * currentPage, controller);
-  }, [currentPage, amtPerPage]);
+  let offset = limit * currentPage;
+  let totalPages = Math.ceil(total / limit);
+  let realLimit = Math.min(total - offset, limit);
 
-  let totalPages = Math.ceil(total / amtPerPage);
+  const { data, loading, error } = useDataFetcher(
+    service, 
+    eager ? [total] : [realLimit, offset]
+  );
+
+  const items = eager ? data?.slice(offset, offset + limit) : data;
 
   const goToPage = page => {
     setCurrentPage(Math.min(Math.max(0, page), totalPages - 1));
   };
 
-  const updateAmtPerPage = amt => {
+  const updateLimit = amt => {
     totalPages = Math.ceil(total / amt);
-    goToPage(Math.floor((amtPerPage * currentPage + 1) / amt));
-    setAmtPerPage(amt);
-  }
+    goToPage(Math.floor((offset + 1) / amt));
+    setLimit(amt);
+  };
 
   return {
     items,
     loading,
     currentPage,
     goToPage,
-    amtPerPage,
-    updateAmtPerPage,
+    limit,
+    updateLimit,
     totalPages,
+    error
   };
-}
+};

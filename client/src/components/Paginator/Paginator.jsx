@@ -5,8 +5,8 @@ import style from './paginator.module.css';
 export default function Paginator(props) {
   const {
     service,
+    limitOptions,
     maxPageButtons,
-    itemPerPageOptions,
     totalItems,
     ItemComponent
   } = props;
@@ -16,18 +16,17 @@ export default function Paginator(props) {
     loading,
     currentPage,
     goToPage,
-    amtPerPage,
-    updateAmtPerPage,
+    limit,
+    updateLimit,
     totalPages,
-  } = usePaginate(service, itemPerPageOptions[0], totalItems);
+  } = usePaginate(service, limitOptions[0], totalItems, true);
 
+  const pageInput = useRef(null);
   const pageArrLen = Math.min(maxPageButtons, totalPages);
 
   const [pageArr, setPageArr] = useState(
     Array.from({ length: pageArrLen }, (_, i) => i)
   );
-
-  const pageInput = useRef(null);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -39,28 +38,28 @@ export default function Paginator(props) {
     if (pageArr[mid] === currentPage) return;
 
     const newPageArr = Array.from({ length: pageArrLen }, (_, i) => {
-      if (totalPages - currentPage <= mid) return i + totalPages - pageArrLen;
       if (currentPage <= mid) return i;
+      if (totalPages - currentPage <= mid) return i + totalPages - pageArrLen;
       return i + currentPage - mid;
     });
 
     setPageArr(newPageArr);
-  }, [currentPage, amtPerPage]);
+  }, [currentPage, limit]);
 
   return (
     <div className={style.container}>
       <h2>Traditional Pages</h2>
       <form className={style.form}>
-        <label htmlFor="amtPerPage">Amount Per Page:</label>
+        <label htmlFor="limit">Amount Per Page:</label>
         <select
-          id="amtPerPage"
-          value={amtPerPage}
-          onChange={e => updateAmtPerPage(e.target.value)}
+          id="limit"
+          value={limit}
+          onChange={e => updateLimit(+e.target.value)}
         >
-          {itemPerPageOptions.map(opt => <option key={opt}>{opt}</option>)}
+          {limitOptions.map(opt => <option key={opt}>{opt}</option>)}
         </select>
       </form>
-      {loading ?
+      {(loading || !items) ?
         <h1 className={style.loading}>Loading...</h1>
         :
         <ul className={style.itemList}>

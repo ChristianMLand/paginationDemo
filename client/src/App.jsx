@@ -3,7 +3,7 @@ import { getPokemonCount, getPokemon } from "~/services";
 import { useDataFetcher } from '~/hooks';
 
 export default function App() {
-  const [count, loading] = useDataFetcher(getPokemonCount);
+  const {data:count, loading} = useDataFetcher(getPokemonCount);
 
   if (loading || !count) return <h1>Loading...</h1>;
 
@@ -13,14 +13,14 @@ export default function App() {
       <main>
         <Paginator
           service={getPokemon}
-          itemPerPageOptions={[12, 24, 36, 48]}
+          limitOptions={[12, 24, 36, 48]}
           maxPageButtons={7}
-          totalItems={count}
+          totalItems={151}
           ItemComponent={PokeCard}
         />
         <InfiniScroll
           service={getPokemon}
-          batchSize={24}
+          limit={24}
           bufferDistance={250}
           totalItems={count}
           ItemComponent={PokeCard}

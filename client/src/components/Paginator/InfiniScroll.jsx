@@ -5,14 +5,11 @@ import style from './paginator.module.css';
 export default function InfiniScroll(props) {
   const { 
     service, 
-    batchSize, 
+    limit, 
     totalItems, 
     bufferDistance, 
     ItemComponent 
   } = props;
-
-  const [allItems, setAllItems] = useState([]);
-  const listElement = useRef(null);
 
   const {
     items,
@@ -20,11 +17,14 @@ export default function InfiniScroll(props) {
     goToPage,
     totalPages,
     loading
-  } = usePaginate(service, batchSize, totalItems);
+  } = usePaginate(service, limit, totalItems);
+
+  const [allItems, setAllItems] = useState([]);
+  const listElement = useRef(null);
 
   const handleScroll = () => {
     if (currentPage === totalPages - 1) return;
-    if (allItems.length !== (currentPage + 1) * batchSize) return;
+    if (allItems.length !== (currentPage + 1) * limit) return;
 
     const { scrollTop, scrollHeight, clientHeight } = listElement.current;
 
@@ -40,10 +40,14 @@ export default function InfiniScroll(props) {
   return (
     <div className={style.container}>
       <h2>Infinite Scroll</h2>
-      <ul className={style.itemList} ref={listElement} onScroll={handleScroll}>
+      <ul 
+        className={style.itemList} 
+        ref={listElement} 
+        onScroll={handleScroll}
+      >
         {allItems?.map((item, i) => <ItemComponent key={i} {...item} />)}
       </ul>
-      {loading && <h1 className={style.loading}>Loading...</h1>}
+      {(loading || !items) && <h1 className={style.loading}>Loading...</h1>}
     </div>
   )
 };
