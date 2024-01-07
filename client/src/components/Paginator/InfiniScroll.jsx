@@ -8,7 +8,8 @@ export default function InfiniScroll(props) {
     limit, 
     totalItems, 
     bufferDistance, 
-    ItemComponent 
+    ItemComponent,
+    eager
   } = props;
 
   const {
@@ -17,7 +18,7 @@ export default function InfiniScroll(props) {
     goToPage,
     totalPages,
     loading
-  } = usePaginate(service, limit, totalItems);
+  } = usePaginate(service, limit, totalItems, eager);
 
   const [allItems, setAllItems] = useState([]);
   const listElement = useRef(null);

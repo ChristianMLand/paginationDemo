@@ -17,6 +17,7 @@ export default function App() {
           maxPageButtons={7}
           totalItems={151}
           ItemComponent={PokeCard}
+          eager={true}
         />
         <InfiniScroll
           service={getPokemon}
@@ -24,6 +25,7 @@ export default function App() {
           bufferDistance={250}
           totalItems={count}
           ItemComponent={PokeCard}
+          eager={false}
         />
       </main>
     </>

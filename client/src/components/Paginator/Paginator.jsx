@@ -8,7 +8,8 @@ export default function Paginator(props) {
     limitOptions,
     maxPageButtons,
     totalItems,
-    ItemComponent
+    ItemComponent,
+    eager
   } = props;
 
   const {
@@ -19,7 +20,7 @@ export default function Paginator(props) {
     limit,
     updateLimit,
     totalPages,
-  } = usePaginate(service, limitOptions[0], totalItems, true);
+  } = usePaginate(service, limitOptions[0], totalItems, eager);
 
   const pageInput = useRef(null);
   const pageArrLen = Math.min(maxPageButtons, totalPages);
